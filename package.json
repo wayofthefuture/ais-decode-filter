@@ -1,0 +1,11 @@
+{
+  "name": "ais-decode-filter",
+  "version": "1.0.0",
+  "description": "AIS Decoder and Filter Library",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "wayofthefuture",
+  "license": "ISC"
+}
