@@ -1,4 +1,4 @@
-let mappings = require('./mappings');
+let types = require('./types');
 const {isNumeric} = require('./utility');
 const VALID = 'VALID';
 
@@ -23,7 +23,7 @@ function parseOnePart(message) {
     }
 
     //convert payload to object
-    return mappings.decode(parts.payload);
+    return types.decode(parts.payload);
 }
 
 function parseTwoPart(message1, message2) {
@@ -51,7 +51,7 @@ function parseTwoPart(message1, message2) {
     }
 
     //convert payload to object
-    return mappings.decode(parts1.payload + parts2.payload);
+    return types.decode(parts1.payload + parts2.payload);
 }
 
 //Split message into parts object. (!AIVDM,1,1,,B,B69>7mh0?J<:>05B0`0e;wq2PHI8,0*3D)
@@ -118,11 +118,13 @@ function validateChecksum(message) {
                     return false;
                 }
 
-                //standard xor based checksum
+                //xor based checksum
                 sum ^= code;
             }
+            let hex = sum.toString(16).toUpperCase();
+            if (hex.length === 1) hex = '0' + hex;      //single digit hex needs preceding 0. 'F' -> '0F'
 
-            return (checksum === sum.toString(16).toUpperCase());
+            return (checksum === hex);
         }
     }
     return false;
